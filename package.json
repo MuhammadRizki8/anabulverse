@@ -2,13 +2,15 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "dev": "vite",
-        "build": "vite build"
+        "dev": "npm-run-all --parallel vite laravel",
+        "vite": "vite",
+        "laravel": "php artisan serve"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",
         "axios": "^1.6.4",
         "laravel-vite-plugin": "^1.2.0",
+        "npm-run-all": "^4.1.5",
         "tailwindcss": "^4.0.0",
         "vite": "^5.4.14"
     },
