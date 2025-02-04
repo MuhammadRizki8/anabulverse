@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Storage;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -47,18 +47,25 @@ class PostController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'caption' => 'required|string',
         ]);
-
+    
         if ($request->hasFile('image')) {
+            // Hapus gambar lama jika ada
+            if ($post->image_url) {
+                Storage::delete('public/' . $post->image_url);
+            }
+    
             // Simpan file baru
             $imagePath = $request->file('image')->store('posts', 'public');
             $post->image_url = $imagePath; // Update path gambar
         }
-
+    
+        // Update data post
         $post->update([
             'title' => $request->title,
             'caption' => $request->caption,
+            'image_url' => $post->image_url, // Tetap gunakan gambar lama jika tidak ada yang baru
         ]);
-
+    
         return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
     }
 
@@ -70,6 +77,12 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        // Hapus file gambar dari storage
+        if ($post->image_url) {
+            Storage::delete('public/' . $post->image_url);
+        }
+
+        // Hapus data post dari database
         $post->delete();
 
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
