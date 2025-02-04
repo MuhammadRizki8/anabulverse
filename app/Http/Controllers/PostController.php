@@ -23,18 +23,43 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'image_url' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'caption' => 'required|string',
         ]);
+
+        // Simpan file gambar
+        $imagePath = $request->file('image')->store('posts', 'public');
 
         Post::create([
             'user_id' => Auth::id(),
             'title' => $request->title,
-            'image_url' => $request->image_url,
+            'image_url' => $imagePath, // Simpan path gambar
             'caption' => $request->caption,
         ]);
 
         return redirect()->route('posts.index')->with('success', 'Post created successfully.');
+    }
+
+    public function update(Request $request, Post $post)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'caption' => 'required|string',
+        ]);
+
+        if ($request->hasFile('image')) {
+            // Simpan file baru
+            $imagePath = $request->file('image')->store('posts', 'public');
+            $post->image_url = $imagePath; // Update path gambar
+        }
+
+        $post->update([
+            'title' => $request->title,
+            'caption' => $request->caption,
+        ]);
+
+        return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
     }
 
     public function edit(Post $post)
@@ -42,22 +67,6 @@ class PostController extends Controller
         return view('posts.edit', compact('post'));
     }
 
-    public function update(Request $request, Post $post)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'image_url' => 'required|string',
-            'caption' => 'required|string',
-        ]);
-
-        $post->update([
-            'title' => $request->title,
-            'image_url' => $request->image_url,
-            'caption' => $request->caption,
-        ]);
-
-        return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
-    }
 
     public function destroy(Post $post)
     {

@@ -8,7 +8,7 @@
 </head>
 <body class="bg-gray-100">
     <div class="container mx-auto">
-        <!-- Navbar atau menu bisa ditambahkan di sini -->
+        <x-navbar />
         @yield('content')
     </div>
 </body>

@@ -1,27 +1,36 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>Create New Post</h1>
+<div class="container mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-6">Create New Post</h1>
 
-    <form action="{{ route('posts.store') }}" method="POST">
+    <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
         @csrf
-        <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" name="title" class="form-control" id="title" required>
+        <div class="mb-4">
+            <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+            <input type="text" name="title" id="title" 
+                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" 
+                   required>
         </div>
 
-        <div class="form-group">
-            <label for="image_url">Image URL</label>
-            <input type="text" name="image_url" class="form-control" id="image_url" required>
+        <div class="mb-4">
+            <label for="image" class="block text-sm font-medium text-gray-700">Upload Image</label>
+            <input type="file" name="image" id="image" 
+                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" 
+                   required>
         </div>
 
-        <div class="form-group">
-            <label for="caption">Caption</label>
-            <textarea name="caption" class="form-control" id="caption" required></textarea>
+        <div class="mb-4">
+            <label for="caption" class="block text-sm font-medium text-gray-700">Caption</label>
+            <textarea name="caption" id="caption" rows="4" 
+                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" 
+                      required></textarea>
         </div>
 
-        <button type="submit" class="btn btn-success mt-3">Save Post</button>
+        <button type="submit" 
+                class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded shadow">
+            Save Post
+        </button>
     </form>
 </div>
 @endsection

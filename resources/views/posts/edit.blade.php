@@ -13,8 +13,14 @@
         </div>
 
         <div class="form-group">
-            <label for="image_url">Image URL</label>
-            <input type="text" name="image_url" class="form-control" id="image_url" value="{{ $post->image_url }}" required>
+            <label for="image">Current Image</label>
+            <br>
+            <img src="{{ asset('storage/' . $post->image_url) }}" alt="{{ $post->title }}" class="img-fluid mb-2" width="300">
+        </div>
+
+        <div class="form-group">
+            <label for="image">Upload New Image (Optional)</label>
+            <input type="file" name="image" class="form-control" id="image">
         </div>
 
         <div class="form-group">

@@ -24,7 +24,7 @@
                 <tr class="hover:bg-gray-50">
                     <td class="px-4 py-2 border-b">{{ $post->title }}</td>
                     <td class="px-4 py-2 border-b">
-                        <img src="{{ $post->image_url }}" alt="image" class="w-24">
+                        <img src="{{ asset('storage/' . $post->image_url) }}" alt="{{ $post->title }}" class="w-full h-auto">
                     </td>
                     <td class="px-4 py-2 border-b">{{ $post->caption }}</td>
                     <td class="px-4 py-2 border-b">
