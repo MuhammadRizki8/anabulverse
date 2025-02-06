@@ -87,4 +87,14 @@ class PostController extends Controller
 
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
     }
+    public function show(Post $post)
+    {
+        return view('posts.show', compact('post'));
+    }
+    public function home()
+    {
+        $posts = Post::all(); // Ambil semua data post
+        return view('home', compact('posts')); // Kirim data ke view home.blade.php
+    }
+    
 }

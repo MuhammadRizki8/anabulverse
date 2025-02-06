@@ -12,7 +12,7 @@
             <a href="{{ url('/popular') }}" class="text-gray-600 hover:text-gray-900">Popular</a>
             <a href="{{ url('/help') }}" class="text-gray-600 hover:text-gray-900">Help</a>
 
-            <a href="{{ url('/post') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+            <a href="{{ url('/posts/create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
                 Post
             </a>
         </div>
