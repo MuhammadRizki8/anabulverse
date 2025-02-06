@@ -14,7 +14,7 @@
     <p class="text-gray-700 text-lg leading-relaxed mb-6">{{ $post->caption }}</p>
 
     <!-- Tombol Kembali (Dinamis) -->
-    <a href="{{ url()->previous() }}" class="inline-block px-5 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-800 transition">
+    <a href="{{ url("/")}}" class="inline-block px-5 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-800 transition">
         ⬅ Kembali
     </a>
 
