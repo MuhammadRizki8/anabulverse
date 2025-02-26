@@ -1,6 +1,5 @@
-@extends('layouts.app')
-
-@section('content')
+{{-- resources/views/home.blade.php --}}
+<x-app-layout>
     <!-- Jumbotron -->
     <div class="bg-red-100 py-16 mb-12">
         <div class="container mx-auto text-center px-4 sm:px-6 md:px-8">
@@ -10,7 +9,8 @@
             <p class="mt-4 text-lg text-gray-700 max-w-2xl mx-auto">
                 Share and discover amazing pets from around the world. Join us and explore a community of pet lovers!
             </p>
-            <!-- Tombol untuk Post dan Browse (Masuk ke dalam jumbotron) -->
+
+            <!-- Tombol untuk Post dan Browse -->
             <div class="flex justify-center space-x-6 mt-8">
                 <!-- Tombol Post -->
                 <a href="{{ url('/posts/create') }}" class="flex items-center px-6 py-3 bg-red-600 text-white text-lg font-medium rounded-lg shadow-md hover:bg-red-700 transition duration-300 transform hover:scale-105">
@@ -52,4 +52,4 @@
             @endforeach
         </div>
     </div>
-@endsection
+</x-app-layout>

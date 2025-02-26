@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<x-app-layout>
 <div class="container mx-auto px-4 py-8 max-w-2xl">
     <!-- Judul -->
     <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ $post->title }}</h1>
@@ -53,4 +51,4 @@
     </div>
 
 </div>
-@endsection
+</x-app-layout>
