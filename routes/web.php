@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 
+use App\Http\Controllers\PawLikeController;
+
+Route::post('/paw-likes', [PawLikeController::class, 'store'])->name('paw-likes.store');
 
 // Route Homepage
 Route::get('/', [PostController::class, 'home'])->name('home');
