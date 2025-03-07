@@ -1,4 +1,3 @@
-{{-- resources/views/home.blade.php --}}
 <x-app-layout>
     <!-- Jumbotron -->
     <div class="bg-red-100 py-16 mb-12">
@@ -32,23 +31,10 @@
     </div>
 
     <!-- Grid of Posts -->
-    <div class="container mx-auto px-4 sm:px-6 md:px-8">
+    <div class="container mx-auto px-4 sm:px-6 md:px-8 max-w-screen-lg">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-12">
             @foreach($posts as $post)
-                <a href="{{ route('posts.show', $post) }}" class="relative block group rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105">
-                    <!-- Gambar Post -->
-                    <img src="{{ asset('storage/' . $post->image_url) }}" 
-                         alt="{{ $post->title }}" 
-                         class="w-full h-64 object-cover transition-transform group-hover:scale-110">
-
-                    <!-- Overlay setengah bagian bawah -->
-                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-6 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <h2 class="text-xl font-semibold truncate">{{ $post->title }}</h2>
-                        <p class="text-sm text-gray-300 mt-2 line-clamp-3">
-                            {{ Str::limit($post->caption, 60, '...') }}
-                        </p>
-                    </div>
-                </a>
+                <x-post-card :post="$post" />
             @endforeach
         </div>
     </div>

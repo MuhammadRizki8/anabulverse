@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Storage;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -8,12 +9,35 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::all();
-        return view('posts.index', compact('posts'));
-    }
+        $query = $request->input('search');
 
+        if ($query) {
+            $posts = Post::where('title', 'LIKE', "%$query%")
+                ->orWhere('caption', 'LIKE', "%$query%")
+                ->get();
+        } else {
+            $posts = Post::all();
+        }
+
+        return view('posts.index', compact('posts', 'query'));
+    }
+    public function browse(Request $request)
+    {
+        $query = $request->input('search');
+    
+        $posts = collect(); // Default kosong
+    
+        if ($query) {
+            $posts = Post::where('title', 'LIKE', "%$query%")
+                ->orWhere('caption', 'LIKE', "%$query%")
+                ->get();
+        }
+    
+        return view('browse', compact('posts'));
+    }
+    
     public function create()
     {
         return view('posts.create');
@@ -27,13 +51,12 @@ class PostController extends Controller
             'caption' => 'required|string',
         ]);
 
-        // Simpan file gambar
         $imagePath = $request->file('image')->store('posts', 'public');
 
         Post::create([
             'user_id' => Auth::id(),
             'title' => $request->title,
-            'image_url' => $imagePath, // Simpan path gambar
+            'image_url' => $imagePath,
             'caption' => $request->caption,
         ]);
 
@@ -47,25 +70,22 @@ class PostController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'caption' => 'required|string',
         ]);
-    
+
         if ($request->hasFile('image')) {
-            // Hapus gambar lama jika ada
             if ($post->image_url) {
                 Storage::delete('public/' . $post->image_url);
             }
-    
-            // Simpan file baru
+
             $imagePath = $request->file('image')->store('posts', 'public');
-            $post->image_url = $imagePath; // Update path gambar
+            $post->image_url = $imagePath;
         }
-    
-        // Update data post
+
         $post->update([
             'title' => $request->title,
             'caption' => $request->caption,
-            'image_url' => $post->image_url, // Tetap gunakan gambar lama jika tidak ada yang baru
+            'image_url' => $post->image_url,
         ]);
-    
+
         return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
     }
 
@@ -74,27 +94,25 @@ class PostController extends Controller
         return view('posts.edit', compact('post'));
     }
 
-
     public function destroy(Post $post)
     {
-        // Hapus file gambar dari storage
         if ($post->image_url) {
             Storage::delete('public/' . $post->image_url);
         }
 
-        // Hapus data post dari database
         $post->delete();
 
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
     }
+
     public function show(Post $post)
     {
         return view('posts.show', compact('post'));
     }
+
     public function home()
     {
-        $posts = Post::all(); // Ambil semua data post
-        return view('home', compact('posts')); // Kirim data ke view home.blade.php
+        $posts = Post::all();
+        return view('home', compact('posts'));
     }
-    
 }
