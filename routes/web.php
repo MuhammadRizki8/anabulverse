@@ -7,8 +7,6 @@ use App\Http\Controllers\CommentController;
 
 use App\Http\Controllers\PawLikeController;
 
-Route::post('/paw-likes', [PawLikeController::class, 'store'])->name('paw-likes.store');
-Route::get('/browse', [PostController::class, 'browse'])->name('browse');
 
 // Route Homepage
 Route::get('/', [PostController::class, 'home'])->name('home');
@@ -23,13 +21,13 @@ Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show')
 Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::post('/paw-likes', [PawLikeController::class, 'store'])->name('paw-likes.store');
+Route::get('/browse', [PostController::class, 'browse'])->name('browse');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

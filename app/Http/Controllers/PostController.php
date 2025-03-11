@@ -60,7 +60,7 @@ class PostController extends Controller
             'caption' => $request->caption,
         ]);
 
-        return redirect()->route('posts.index')->with('success', 'Post created successfully.');
+        return redirect()->route('home')->with('success', 'Post created successfully.');
     }
 
     public function update(Request $request, Post $post)
@@ -112,7 +112,7 @@ class PostController extends Controller
 
     public function home()
     {
-        $posts = Post::all();
+        $posts = Post::orderBy('id', 'desc')->get();
         return view('home', compact('posts'));
     }
 }

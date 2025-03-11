@@ -1,4 +1,6 @@
 <x-app-layout>
+    <!-- Popup Success -->
+    <x-success-popup />
     <!-- Jumbotron -->
     <div class="bg-red-100 py-16 mb-12">
         <div class="container mx-auto text-center px-4 sm:px-6 md:px-8">
