@@ -1,22 +1,9 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Browse Posts') }}
-        </h2>
-    </x-slot>
-    <div class="container mx-auto py-12 px-4">
+    <div class="container mt-12 mx-auto py-12 px-4">
         <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Browse Posts</h1>
 
         <!-- Search Bar -->
-        <form action="{{ route('browse') }}" method="GET" class="max-w-3xl mx-auto mb-6">
-            <div class="flex items-center bg-white shadow-sm border border-gray-300 rounded-lg overflow-hidden">
-                <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari post..."
-                    class="w-full px-4 py-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <button type="submit" class="px-6 py-3 bg-blue-600 text-white font-semibold hover:bg-blue-700 transition">
-                    Cari
-                </button>
-            </div>
-        </form>
+        <x-search-bar />
         
         @if(request('search'))
             <p class="text-gray-600 mb-4 text-center">
