@@ -115,4 +115,15 @@ class PostController extends Controller
         $posts = Post::orderBy('id', 'desc')->get();
         return view('home', compact('posts'));
     }
+    public function popular()
+    {
+        // Mengambil 10 post dengan jumlah like terbanyak
+        $posts = Post::withCount('pawLikes')
+            ->orderByDesc('paw_likes_count')
+            ->take(10)
+            ->get();
+
+        return view('popular', compact('posts'));
+    }
+
 }

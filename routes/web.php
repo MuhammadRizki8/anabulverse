@@ -23,6 +23,7 @@ Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name
 
 Route::post('/paw-likes', [PawLikeController::class, 'store'])->name('paw-likes.store');
 Route::get('/browse', [PostController::class, 'browse'])->name('browse');
+Route::get('/popular', [PostController::class, 'popular'])->name('popular');
 
 Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
